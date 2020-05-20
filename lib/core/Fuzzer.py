@@ -156,7 +156,7 @@ class Fuzzer(object):
                             backup = path + i
                             status, response = self.scan(backup)
                             result = Path(path=backup, status=status, response=response)
-                            if previous != len(response)
+                            if previous != len(response):
                                 self.matches.append(response)
                                 for callback in self.matchCallbacks:
                                     callback(result)
