@@ -135,6 +135,7 @@ class Fuzzer(object):
 
     def thread_proc(self):
         self.playEvent.wait()
+        backupexts = ["-",".",".1",".2",".3",".bac",".backup",".bak",".cache",".conf",".cs",".csproj",".dif",".err",".gz",".inc",".ini",".java",".map",".log",".lst",".old",".orig",".part",".rej",".sass-cache",".sav",".save",".save.1",".sublime-project",".sublime-workspace",".swp",".tar",".tar.gz",".tgz",".temp",".templ",".tmp",".txt",".un~",".vb",".vbproj",".vi",".zip","0","s","1","2",".dist","~","~1","~bk",".swm",".swn",".swo",".swp"]
         try:
             path = next(self.dictionary)
             while path is not None:
@@ -149,6 +150,17 @@ class Fuzzer(object):
                     else:
                         for callback in self.notFoundCallbacks:
                             callback(result)
+                    
+                    if  status == 200 and path.find(".") != -1:
+                        for i in backupexts:
+                            backup = path + i
+                            status, response = self.scan(backup)
+                            result = Path(path=backup, status=status, response=response)
+                            if previous != len(response)
+                                self.matches.append(response)
+                                for callback in self.matchCallbacks:
+                                    callback(result)
+                                    
                     del status
                     del response
 
