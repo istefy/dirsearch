@@ -141,6 +141,7 @@ class Fuzzer(object):
             while path is not None:
                 try:
                     status, response = self.scan(path)
+                    previous = len(response)
                     result = Path(path=path, status=status, response=response)
 
                     if status is not None:
